@@ -1,31 +1,22 @@
+
 // load the things we need
-var express = require('express');
+var express = require('express'), bodyParser = require('body-parser');
 var app = express();
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+require('dotenv').config({ path: './db.env' });
+const port = process.env['PORT'];
+const url = process.env['URL_DB'];
+const mongoose = require('mongoose');
+mongoose.connect(url);
+
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
-// use res.render to load up an ejs view file
+var controller = require("./controller");
 
-// index page 
-app.get('/', function(req, res) {
-    var mascots = [
-        { name: 'Sammy', organization: "DigitalOcean", birth_year: 2012},
-        { name: 'Tux', organization: "Linux", birth_year: 1996},
-        { name: 'Moby Dock', organization: "Docker", birth_year: 2013}
-    ];
-    var tagline = "No programming concept is complete without a cute animal mascot.";
+controller.controller(app);
 
-    res.render('pages/index', {
-        mascots: mascots,
-        tagline: tagline
-    });
-});
-
-// about page
-app.get('/about', function(req, res) {
-    res.render('pages/about');
-});
-
-app.listen(8080);
-console.log('8080 is the magic port');
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`)
+})

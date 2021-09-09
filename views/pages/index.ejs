@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+<h1 class="text-center">CALCULADORA</h1>
 <head>
     <%- include('../partials/head'); %>
 </head>
+
 <body class="container">
 
     <header>
@@ -11,17 +13,11 @@
 
     <main>
         <div class="jumbotron">
-            <h1>Top Mascots</h1>
-            <p><%= tagline %></p>
-            <ul>
-                <% mascots.forEach(function(mascot) { %>
-                    <li>
-                        <strong><%= mascot.name %></strong>
-                        representing <%= mascot.organization %>, born <%= mascot.birth_year %>
-                    </li>
-                <% }); %>
-            </ul>
+
+            <%- include('../partials/form'); %>
         </div>
+
+
     </main>
 
     <footer>
@@ -29,4 +25,5 @@
     </footer>
 
 </body>
+
 </html>
