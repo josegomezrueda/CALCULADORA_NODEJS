@@ -2,7 +2,7 @@ var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 const moduloOperacion = require("./moduloOperacion");
 
-var id = null;
+var id = 1;
 var operacion;
 var numero;
 
@@ -35,15 +35,15 @@ function calculoOperaciones(total, operacion, numero) {
     return cuentafinal;
 }
 async function cargarDatos(req, res) {
+    console.log(req.body)
     id = (req.body?.id)
     operacion = (req.body?.operacion)
     numeroRecibido = (req.body?.numero)
-    if (!numeroRecibido) {
-        numeroRecibido = 0;
-    }
-    if (numeroRecibido == 0 && operacion == '/') {
+
+    if ((numeroRecibido == 0 && operacion == '/')||id.trim()==''||numeroRecibido.trim()=='') {
+        
         res.render('pages/lastOperation', {
-            muestraID: "INDETERMINACIÓN, INTENTE OTRA OPERACION",
+            muestraID: "ERROR, RECUERDA QUE TODOS LOS CAMPOS DEBEN DE ESTAR RELLENOS Y NO SE PUEDE DIVIDIR ENTRE 0",
             contOperaciones: '',
             historicoOperaciones: ''
         });
